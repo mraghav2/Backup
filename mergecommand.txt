@@ -1,0 +1,128 @@
+CREATE TABLE dbo.BookInventory  -- target
+(
+  TitleID INT NOT NULL PRIMARY KEY,
+  Title NVARCHAR(100) NOT NULL,
+  Quantity INT NOT NULL
+    CONSTRAINT Quantity_Default_1 DEFAULT 0
+);
+
+CREATE TABLE dbo.BookOrder  -- source
+(
+  TitleID INT NOT NULL PRIMARY KEY,
+  Title NVARCHAR(100) NOT NULL,
+  Quantity INT NOT NULL
+    CONSTRAINT Quantity_Default_2 DEFAULT 0
+);
+INSERT BookInventory VALUES
+ -- (1, 'The Catcher in the Rye', 6),
+  --(2, 'Pride and Prejudice', 3),
+  --(3, 'The Great Gatsby', 0),
+  --(5, 'Jane Eyre', 0),
+  --(6, 'Catch 22', 0),
+  (8, 'Slaughterhouse Five', 4);
+INSERT BookOrder VALUES
+ -- (1, 'The Catcher in the Rye', 3),
+  --(3, 'The Great Gatsby', 0),
+  --(4, 'Gone with the Wind', 4),
+ -- (5, 'Jane Eyre', 5),
+  (7, 'Age of Innocence', 8);
+
+
+
+DECLARE @MergeOutput TABLE
+(
+  ActionType NVARCHAR(10),
+  DelTitleID INT,
+  InsTitleID INT,
+  DelTitle NVARCHAR(50),
+  InsTitle NVARCHAR(50),
+  DelQuantity INT,
+  InsQuantity INT
+);
+ 
+
+begin tran
+SELECT * FROM BookInventory;
+SELECT * FROM BookOrder;
+
+rollback
+
+MERGE BookInventory bi
+USING BookOrder bo
+ON bi.TitleID = bo.TitleID
+WHEN MATCHED AND
+  bi.Quantity + bo.Quantity = 0 THEN
+  DELETE
+WHEN MATCHED THEN
+  UPDATE
+  SET bi.Quantity = bi.Quantity + bo.Quantity
+WHEN NOT MATCHED BY TARGET THEN
+  INSERT (TitleID, Title, Quantity)
+  VALUES (bo.TitleID, bo.Title,bo.Quantity)
+WHEN NOT MATCHED BY SOURCE
+  AND bi.Quantity = 0 THEN
+  DELETE
+OUTPUT
+    $action,
+    DELETED.TitleID,
+    INSERTED.TitleID,
+    DELETED.Title,
+    INSERTED.Title,
+    DELETED.Quantity,
+    INSERTED.Quantity
+  INTO @MergeOutput;
+ 
+SELECT * FROM BookInventory;
+ 
+SELECT * FROM @MergeOutput;
+
+
+https://www.simple-talk.com/sql/learn-sql-server/the-merge-statement-in-sql-server-2008/
+
+
+###################################################################################################3
+CREATE TABLE UnSparsed(ID INT IDENTITY(1,1),
+FirstCol INT,
+SecondCol VARCHAR(100),
+ThirdCol SmallDateTime)
+GO
+
+CREATE TABLE Sparsed(ID INT IDENTITY(1,1),
+FirstCol INT SPARSE,
+SecondCol VARCHAR(100) SPARSE,
+ThirdCol SmallDateTime SPARSE)
+GO
+
+DECLARE @idx INT = 0
+WHILE @idx < 50000
+BEGIN
+INSERT INTO UnSparsed VALUES (NULL,NULL, NULL)
+INSERT INTO Sparsed VALUES (NULL, NULL, NULL)
+SET @idx+=1
+END
+
+select * from  UnSparsed
+select * from  Sparsed
+
+GO
+sp_spaceused 'UnSparsed'
+GO
+sp_spaceused 'Sparsed'
+GO
+DROP TABLE UnSparsed
+GO
+DROP TABLE Sparsed
+GO
+
+########################################################################################################CTE##RECURSION######
+
+DECLARE @T VARCHAR(100);
+set @T='Where,there,is,a,will,there,is,a,way';    SET @T =@T+','
+;WITH MyCTE(Start,[End]) AS(
+SELECT 1 AS Start,CHARINDEX(',',@T,1) AS [End]
+UNION ALL
+SELECT [End]+1 AS Start,CHARINDEX(',',@T,[End]+1)AS [End] 
+from MyCTE where [End]<LEN(@T))
+Select Start,[End], SUBSTRING(@T,Start,[End]-Start)from MyCTE OPTION (MAXRECURSION 5);
+
+################################################################################################################
