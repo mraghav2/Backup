@@ -1,0 +1,26 @@
+Updates to the Identification and Authentication module have been requested by the business.  This is an executive tracked pilot to simplify the caller experience and increase Identification and Authentication rates.
+
+Primary Welcome@234
+Secondary - United_345
+
+INC7808171 - TSC
+
+CHG0239197 - Routing Service Updates for 11/28/17, 11/30/17
+CHG0239205 - Admin script Update for TFN 8666332446
+
+This is past 6AM to account for first day of business testing that cannot occur until 7AM CST due to contact center hours of operation as well as any rollback necessary
+
+Call.DialedNumberString="8662628071"||left(Call.PeripheralVariable7,10)="8662628071"
+
+
+CHG0239197 Template
+
+TFN reference - 8666332446 
+
+Implementation: To rename the previous/unused version to the latest app version i.e UIGS65 and PFCS54 and that would take care of all the attributes to work
+
+Validation: To validate the changes and test successfully within 15 min of the Production change by Brendon and Mike L.
+
+Backout: To revert back to the previous version in Routing services i.e UIGS62 and PFCS63
+To validate the changes and test successfully within 15 min of the Production change by Brendon and Mike L.
+

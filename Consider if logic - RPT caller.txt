@@ -1,0 +1,9 @@
+EGN_PG30.38379_QS1096	(userPRV_RPT_Domestic()||userGetBIECampaign()="VAM")&&userTrunksIdleEaganNode7ATT()&&Global.userVCC_RPT_N7_SK1096_OPEN=1&&SkillGroup.EGN_PG30.1096_R1H_UP_T12_Int.LoggedOn>0&&SkillGroup.EGN_PG30.1096_R1H_UP_T12_Int.CallsQueuedNow<Global.userVCC_RPT_N7_SK1096_QCAP	1	38379_QS1096	
+
+
+CTC_PG49.1993930082_QS1599	(userPRV_BIE_Flag()||userPRV_Reg_T1())&&Global.userVCC_RPT_N19_SK1599_OPEN=1&&SkillGroup.CTC_PG49.UNI_GUC_SK_1599.LoggedOn>0&&SkillGroup.CTC_PG49.UNI_GUC_SK_1599.CallsQueuedNow<Global.userVCC_RPT_N19_SK1599_QCAP	1	1993930082_QS1599	
+
+
+
+EGN_PG30.34325_MAM_QS1880	(userPRV_RPT_Domestic()||userGetBIECampaign()="VAM")&&userTrunksIdleEaganNode7ATT()&&Global.userVCC_MAM_N7_SK1880_OPEN=1&&SkillGroup.EGN_PG30.STC_UP_1880_Rpt_Cplt.LoggedOn>0&&SkillGroup.EGN_PG30.STC_UP_1880_Rpt_Cplt.CallsQueuedNow<Global.userVCC_N7_SK1880_QCAP	1	34325_MAM_QS1880	ATT_N7_PRV_SIP
+
