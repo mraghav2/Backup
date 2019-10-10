@@ -1,0 +1,11 @@
+from Shubam Awasthi to everyone:
+
+The following general convention is adapted for each of the following types of objects:
+<ObjectType>_<Segment>[_<Function>][_<Client>][_<ObjectName>][_<AdditionalAttribute>]
+ObjectType : Describes the general type of object (i.e. Agent, DN, Application, Skill, Virtual queue, Agent Group...) – Mandatory
+Segment : A short identifier/name representing the department (ENTERPRISECare , M&R...) - Mandatory
+Function : A short identifier/name representing the business function (Sales, Service...) -– MandatoryOptional
+Client : A short identifier/name representing the LOB the Function is executed for (Aetna, UHG) – Optional
+ObjectName : The name of the object (e.g. for an agent; JohnDoe) – Mandatory when applicable
+AdditionalAttribute : Any additional information about the object (free text) – Optional
+
